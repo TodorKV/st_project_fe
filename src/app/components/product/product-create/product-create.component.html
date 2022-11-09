@@ -1,0 +1,44 @@
+<form class="example-form" [formGroup]="thisIsMyForm">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Име</mat-label>
+        <input matInput #message maxlength="256" placeholder="Наименование на продукта..." [(ngModel)]="name"
+            name="hallname" [ngModelOptions]="{standalone: true}">
+        <mat-hint align="start"><strong>Наименование на продукта</strong> </mat-hint>
+        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Описание</mat-label>
+        <input matInput #message maxlength="256" placeholder="Описание ..." [(ngModel)]="description" name="address"
+            [ngModelOptions]="{standalone: true}">
+        <mat-hint align="start"><strong>Описание на продукта</strong> </mat-hint>
+        <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+    </mat-form-field>
+
+    <button mat-raised-button (click)="addNewAction()">
+        <mat-icon>add</mat-icon>
+    </button>
+    <div style="border-radius: 8px; border: 4px solid #3f51b5;" [formArrayName]="'formArrayName'">
+        <div *ngFor="let new_div of newActions;let i = index;">
+            <p [formGroupName]="i" style="display: inline-block; text-align: right;">
+                <mat-form-field style="width: 60px;" appearance="fill" class="inputAction">
+                    <mat-label>Стъпка</mat-label>
+                    <input matInput formControlName="step" [readonly]="true" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="inputAction">
+                    <mat-label>Име на операция</mat-label>
+                    <input matInput placeholder="Име на операция" formControlName="name" />
+                </mat-form-field>
+                <mat-form-field appearance="fill" class="inputAction">
+                    <mat-label>Мин. за изпълнение</mat-label>
+                    <input type="number" matInput formControlName="minutes" />
+                </mat-form-field>
+                <mat-icon (click)="removeAction(new_div.step, i)" color="warn">remove_circle</mat-icon>
+                <mat-divider class="material-devider"></mat-divider>
+            </p>
+        </div>
+    </div>
+
+    <div *ngIf="newActions.length > 0">
+        <button mat-raised-button color="primary" style="float: right;" (click)="send()">Добави</button>
+    </div>
+</form>

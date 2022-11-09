@@ -1,0 +1,17 @@
+.mat-elevation-z8 {
+    width: 100%;
+  }
+  
+  .mat-form-field {
+    font-size: 14px;
+    width: 100%;
+  }
+  
+  td {
+    margin: 10px;
+    padding: 10px;
+  }
+  
+.GREEN {
+  background-color: lightgreen;
+}

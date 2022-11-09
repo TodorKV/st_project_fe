@@ -1,0 +1,111 @@
+<mat-form-field appearance="standard">
+    <mat-label>Филтър</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Напр. описание" #input>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8" style="width: 70vw;">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef> ID. </th>
+        <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="orderNumber">
+        <th mat-header-cell *matHeaderCellDef> Номер на поръчка </th>
+        <td mat-cell *matCellDef="let element"> {{element.orderNumber}} </td>
+    </ng-container>
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="product_description">
+        <th mat-header-cell *matHeaderCellDef> Описание на продукта </th>
+        <td mat-cell *matCellDef="let element"> {{element.product.name}} / {{element.product.description}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Снимка </th>
+        <td mat-cell *matCellDef="let element">
+            <span style="display: inline-block;">
+                <!-- <button matTooltip="Изтегли всички снимки" style="float: left" mat-icon-button
+                    (click)="this.download(element.photos)">
+                    <mat-icon>save_alt</mat-icon>
+                </button> -->
+                <app-gallery matTooltip="Прегледай всички снимки" [isCompleted]="false" [photos]="element.photos">
+                </app-gallery>
+            </span>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="completedImage">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;"> Завършени снимки </th>
+        <td mat-cell *matCellDef="let element">
+            <span style="display: inline-block;">
+                <!-- <button disabled="{{!isCompleted}}" matTooltip="Изтегли всички снимки" style="float: left"
+                    mat-icon-button (click)="this.download(element.photos)">
+                    <mat-icon>save_alt</mat-icon>
+                </button> -->
+                <app-gallery matTooltip="Прегледай всички снимки" [isCompleted]="true" [photos]="element.photos">
+                </app-gallery>
+            </span>
+        </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Описание</th>
+        <td mat-cell *matCellDef="let element"> <span
+                style="padding: 20px;box-decoration-break: clone;">{{element.description}}</span> </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="user">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Прогрес</th>
+        <td mat-cell *matCellDef="let element; let e = index" style="text-align: center; width: 15vw;">
+            <circle-progress [percent]="calculateOverallProgress(element.actionStatuses)" [radius]="100"
+                [outerStrokeWidth]="16" [innerStrokeWidth]="8" [outerStrokeColor]="'#78C000'"
+                [innerStrokeColor]="'#C7E596'" [animation]="true" [animationDuration]="200"
+                (click)="openDialog(element.actionStatuses, element)" matTooltip="Натиснете за да видите всички задачи">
+            </circle-progress>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="priority">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center; padding-right: 5px;">Приоритет</th>
+        <td mat-cell *matCellDef=" let element" style="text-align: center;">
+            <mat-icon matTooltip="Приоритет: {{element.priority}}">{{priorityIcon(element.priority)}}</mat-icon>
+        </td>
+    </ng-container>
+
+    <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef style="text-align: center;">Опции</th>
+        <td mat-cell *matCellDef="let element" style="text-align: center;">
+            <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button *ngIf="data?.role == 'ADMIN'" mat-menu-item (click)="deleteOrder(element.id)">
+                    <mat-icon>delete</mat-icon>Delete
+                </button>
+                <button *ngIf="data?.role == 'ADMIN'" mat-menu-item>
+                    <mat-icon>edit</mat-icon>Edit
+                </button>
+            </mat-menu>
+        </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let element; let e = index; columns: displayedColumns;"
+        class="{{calculateOverallProgress(element.actionStatuses) == 100 ? 'GREEN' : ''}}" (mouseover)="onMouseOver(e)"
+        [ngClass]="{'mat-elevation-z24' : e == mouseOverIndex, 'remove-background':e == mouseOverIndex}"
+        (mouseout)="onMouseOver(-1)">
+    </tr>
+
+    <tr class="mat-row" *matNoDataRow>
+        <td class="mat-cell" colspan="4">Няма налична поръчка "{{input.value}}"</td>
+    </tr>
+</table>
+<mat-paginator [length]="theTotalElements" [pageSize]="thePageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="handlePage($event)" aria-label="Select page">
+</mat-paginator>

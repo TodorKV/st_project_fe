@@ -1,0 +1,56 @@
+<mat-form-field appearance="standard">
+  <mat-label>Филтър</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Напр. Име" #input>
+</mat-form-field>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+  <!-- Position Column -->
+  <ng-container matColumnDef="id">
+    <th mat-header-cell *matHeaderCellDef> ID. </th>
+    <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="username">
+    <th mat-header-cell *matHeaderCellDef> Име </th>
+    <td mat-cell *matCellDef="let element" matTooltip="{{element.username}}"> {{element.realname}} </td>
+  </ng-container>
+
+  <!-- Name Column -->
+  <ng-container matColumnDef="role">
+    <th mat-header-cell *matHeaderCellDef> Роля </th>
+    <td mat-cell *matCellDef="let element"> {{element.role}} </td>
+  </ng-container>
+
+  <!-- Edit Column -->
+  <ng-container matColumnDef="edit">
+    <th mat-header-cell *matHeaderCellDef>Опции</th>
+    <td mat-cell *matCellDef="let element">
+      <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="deleteUser(element.id)">
+          <mat-icon>delete</mat-icon>Изтрий
+        </button>
+        <button mat-menu-item (click)="editUser(element.id)">
+          <mat-icon>edit</mat-icon>Редактирай
+        </button>
+      </mat-menu>
+    </td>
+  </ng-container>
+
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; let e = index; columns: displayedColumns;" (mouseover)="onMouseOver(e)"
+    [ngClass]="{'mat-elevation-z24' : e == mouseOverIndex, 'remove-background':e == mouseOverIndex}"
+    (mouseout)="onMouseOver(-1)"></tr>
+
+  <!-- Row shown when there is no matching data. -->
+  <tr class="mat-row" *matNoDataRow>
+    <td class="mat-cell" colspan="4">Няма поръчки с описание: "{{input.value}}"</td>
+  </tr>
+</table>
+<mat-paginator [length]="theTotalElements" [pageSize]="thePageSize" [pageSizeOptions]="[5, 10, 25, 100]"
+  (page)="handlePage($event)" aria-label="Select page">
+</mat-paginator>

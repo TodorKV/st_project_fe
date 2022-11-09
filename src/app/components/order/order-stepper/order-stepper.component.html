@@ -1,0 +1,118 @@
+<mat-stepper [linear]="true" labelPosition="end" #stepper>
+    <mat-step [stepControl]="basicInfoGroup">
+        <form [formGroup]="basicInfoGroup">
+            <ng-template matStepLabel>Основна Информация</ng-template>
+            <table style="margin: 2%; min-width: 150px; max-width: 500px; width: 100%;">
+                <tr>
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Номер на поръчка</mat-label>
+                        <input matInput placeholder="Номер" formControlName="ctrlNumber" required>
+                    </mat-form-field>
+                </tr>
+                <tr>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Моля изберете дата на изпълнение</mat-label>
+                        <input matInput readonly [matDatepicker]="picker" formControlName="ctrlWhenToBeDone">
+                        <mat-hint>DD/MM/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                            <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </tr>
+                <tr>
+                    <mat-form-field>
+                        <mat-label>Избери приоритет...</mat-label>
+                        <mat-select formControlName="ctrlPriority">
+                            <mat-option [value]="priorities" *ngFor="let priorities of Priority">{{priorities}}
+                            </mat-option>
+                        </mat-select>
+                    </mat-form-field>
+                </tr>
+                <tr>
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Описание на поръчка</mat-label>
+                        <textarea matInput placeholder="Описание" formControlName="ctrlDesc"></textarea>
+                    </mat-form-field>
+                </tr>
+                <div>
+                    <button mat-button matStepperNext>Напред</button>
+                </div>
+            </table>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="productGroup">
+        <form [formGroup]="productGroup">
+            <ng-template matStepLabel>Изберете продукт</ng-template>
+            <div style="margin: 2%; min-width: 150px; max-width: 500px; width: 100%;">
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Продукт</mat-label>
+                    <input type="text" matInput formControlName="ctrlProduct" [matAutocomplete]="auto">
+                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayName">
+                        <mat-option *ngFor="let option of productFilteredOptions | async" [value]="option">
+                            {{option.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Назад</button>
+                    <button mat-button matStepperNext>Напред</button>
+                </div>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="imageGroup">
+        <ng-template matStepLabel>Изберете снимка</ng-template>
+        <form [formGroup]="imageGroup">
+            <div style="margin: 2%; min-width: 150px; max-width: 500px; width: 100%;">
+                <input formControlName="ctrlFileInput" #csvInput multiple hidden="true" type="file"
+                    onclick="this.value=null" (change)="imageInputChange($event)" accept="image/*" />
+                <button mat-flat-button color="{{this.fileInput.length == 0 ? 'primary' : 'accent' }}"
+                    (click)="csvInput.click()">
+                    {{this.fileInput.length == 0 ? "Изберете Снимки." : 'Снимките са заредени.'}}</button>
+            </div>
+        </form>
+        <div>
+            <button mat-button matStepperPrevious>Назад</button>
+            <button mat-button matStepperNext>Напред</button>
+        </div>
+    </mat-step>
+    <mat-step [stepControl]="assigneeGroup">
+        <form [formGroup]="assigneeGroup">
+            <ng-template matStepLabel>Изберете Служители</ng-template>
+            <div style="margin: 2%; min-width: 150px; max-width: 500px; width: 100%;">
+                <div *ngFor="let new_action_worker of this.ctrlProduct">
+                    <p>Служител за задача {{new_action_worker.name}}</p>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Служител</mat-label>
+                        <input type="text" matInput formControlName="{{new_action_worker.id}}"
+                            [matAutocomplete]="worker" [required]="true">
+                        <mat-autocomplete #worker="matAutocomplete" [displayWith]="displayUsername">
+                            <mat-option *ngFor="let userOption of this.userOptions" [value]="userOption">
+                                {{userOption.username}}
+                            </mat-option>
+                        </mat-autocomplete>
+                    </mat-form-field>
+                </div>
+                <div>
+                    <!-- <button (click)="showProduct()">test</button> -->
+                    <button mat-button matStepperPrevious>Назад</button>
+                    <button mat-button matStepperNext>Напред</button>
+                </div>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Готово</ng-template>
+        <div style="margin: 2%; min-width: 150px; max-width: 500px; width: 100%;">
+            <p>Поръчката е готова за създаване.</p>
+            <div>
+                <button mat-button matStepperPrevious>Назад</button>
+                <button mat-button *ngIf="this.arePhotosSaved"
+                    (click)="stepper.reset();this.arePhotosSaved=false">Рестарт</button>
+                <button mat-button (click)="publishOrder()">Запази</button>
+            </div>
+        </div>
+
+    </mat-step>
+</mat-stepper>

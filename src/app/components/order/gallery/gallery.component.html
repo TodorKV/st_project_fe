@@ -1,0 +1,5 @@
+<button disabled="{{countOfPhotos(photos,isCompleted) == 0}}" mat-icon-button
+    (click)="openModal(500, images, imageIndex, CONFIG)">
+    <mat-icon matBadge="{{countOfPhotos(photos,isCompleted)}}"
+        [matBadgeHidden]="countOfPhotos(photos,isCompleted) == 0">collections</mat-icon>
+</button>

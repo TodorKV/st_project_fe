@@ -1,0 +1,24 @@
+<form class="example-form" [formGroup]="thisIsMyForm">
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Име</mat-label>
+        <input matInput #message maxlength="256" placeholder="Наименование на стока..." [(ngModel)]="name"
+            name="hallname" [ngModelOptions]="{standalone: true}">
+        <mat-hint align="start"><strong>Наименование на стока</strong> </mat-hint>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Количество</mat-label>
+        <input type="number" matInput #message maxlength="256" placeholder="Количество ..." [(ngModel)]="quantity"
+            name="address" [ngModelOptions]="{standalone: true}">
+        <mat-hint align="start"><strong>Количество</strong> </mat-hint>
+    </mat-form-field>
+    <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Категория</mat-label>
+        <input matInput #message maxlength="256" placeholder="Категория ..." [(ngModel)]="category" name="category"
+            [ngModelOptions]="{standalone: true}">
+        <mat-hint align="start"><strong>Категория</strong> </mat-hint>
+    </mat-form-field>
+
+    <div>
+        <button mat-raised-button color="primary" style="float: right;" (click)="send()">Добави</button>
+    </div>
+</form>

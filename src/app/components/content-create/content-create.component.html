@@ -1,0 +1,27 @@
+<form class="example-form">
+    <table class="example-full-width" cellspacing="0">
+      <tr>
+        <td>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Description</mat-label>
+            <input matInput [(ngModel)]="description" name="description">
+          </mat-form-field>
+        </td>
+        <td>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput [(ngModel)]="name" name="name">
+          </mat-form-field>
+        </td>
+      </tr>
+    </table>
+  
+    <p>
+      <mat-form-field class="example-full-width" appearance="fill">
+        <mat-label>Box Id</mat-label>
+        <textarea matInput [(ngModel)]="boxId" name="boxid"></textarea>
+      </mat-form-field>
+    </p>
+  </form>
+  
+  <button mat-raised-button color="primary" style="margin-left: 2%;"(click)="send()">Send</button>

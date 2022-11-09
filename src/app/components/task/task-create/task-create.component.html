@@ -1,0 +1,63 @@
+<mat-stepper [linear]="true" labelPosition="end" #stepper>
+    <mat-step [stepControl]="basicInfoGroup">
+        <form [formGroup]="basicInfoGroup">
+            <ng-template matStepLabel>Основна Информация</ng-template>
+            <table style="margin: 2%; min-width: 150px; max-width: 500px; width: 100%;">
+                <tr>
+                    <mat-form-field class="example-full-width" appearance="fill">
+                        <mat-label>Моля изберете дата на изпълнение</mat-label>
+                        <input matInput readonly [matDatepicker]="picker" formControlName="ctrlWhenToBeDone">
+                        <mat-hint>DD/MM/YYYY</mat-hint>
+                        <mat-datepicker-toggle matSuffix [for]="picker">
+                            <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                </tr>
+                <tr>
+                    <mat-form-field appearance="fill" style="width: 100%;">
+                        <mat-label>Описание на поръчка</mat-label>
+                        <textarea matInput placeholder="Описание" formControlName="ctrlDesc" required></textarea>
+                    </mat-form-field>
+                </tr>
+                <div>
+                    <button mat-button matStepperNext>Напред</button>
+                </div>
+            </table>
+        </form>
+    </mat-step>
+    <mat-step [stepControl]="assigneeGroup">
+        <form [formGroup]="assigneeGroup">
+            <ng-template matStepLabel>Изберете Служители</ng-template>
+            <div style="margin: 2%; min-width: 150px; max-width: 500px; width: 100%;">
+                <p>Служител за задача</p>
+                <mat-form-field class="example-full-width" appearance="fill">
+                    <mat-label>Служител</mat-label>
+                    <input type="text" matInput [matAutocomplete]="worker" formControlName="ctrlWorker"
+                        [required]="true">
+                    <mat-autocomplete #worker="matAutocomplete" [displayWith]="displayUsername">
+                        <mat-option *ngFor="let userOption of this.userOptions" [value]="userOption">
+                            {{userOption.username}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+                <div>
+                    <button mat-button matStepperPrevious>Назад</button>
+                    <button mat-button matStepperNext>Напред</button>
+                </div>
+            </div>
+        </form>
+    </mat-step>
+    <mat-step>
+        <ng-template matStepLabel>Готово</ng-template>
+        <div style="margin: 2%; min-width: 150px; max-width: 500px; width: 100%;">
+            <p>Задачата е готова за създаване.</p>
+            <div>
+                <button mat-button matStepperPrevious>Назад</button>
+                <button mat-button (click)="stepper.reset()">Рестарт</button>
+                <button mat-button (click)="publishOrder()">Запази</button>
+            </div>
+        </div>
+
+    </mat-step>
+</mat-stepper>

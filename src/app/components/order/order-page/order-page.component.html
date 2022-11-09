@@ -1,0 +1,17 @@
+<mat-tab-group dynamicHeight>
+    <mat-tab label="Нова Поръчка">
+        <div class="example-small-box mat-elevation-z4">
+            <app-order-stepper></app-order-stepper>
+        </div>
+    </mat-tab>
+    <mat-tab label="Налични Поръчки">
+        <div class="example-large-box mat-elevation-z4">
+            <app-order-history></app-order-history>
+        </div>
+    </mat-tab>
+    <mat-tab label="Завършени Поръчки">
+        <div class="example-large-box mat-elevation-z4">
+            <app-order-history [isCompleted]="true"></app-order-history>
+        </div>
+    </mat-tab>
+</mat-tab-group>

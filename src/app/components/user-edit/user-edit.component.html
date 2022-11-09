@@ -1,0 +1,32 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+  <form class="example-form">
+    <p>{{data.user.username}}</p>
+
+    <mat-card-content *ngIf="this.isAdmin && data.showOldPassword == false">
+      <mat-form-field class="example-full-width">
+        <mat-label>Избери роля...</mat-label>
+        <mat-select (selectionChange)="changeRole($event.value)">
+          <mat-option [value]="roles" *ngFor="let roles of Roles">{{roles}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </mat-card-content>
+
+    <mat-card-content>
+      <mat-form-field *ngIf="data.showOldPassword == true">
+        <input matInput placeholder="Стара Парола" [type]="hide ? 'password' : 'text'" name="oldPassword"
+          [(ngModel)]="passwordChange.oldPassword" required>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-hint *ngIf="this.passwordChange.oldPassword == '' ">Въведи стара парола</mat-hint>
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="Нова Парола" [type]="hide ? 'password' : 'text'" name="newPassword"
+          [(ngModel)]="passwordChange.newPassword" required>
+        <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        <mat-hint *ngIf="passwordChange.newPassword == '' ">Въведи нова парола</mat-hint>
+      </mat-form-field>
+    </mat-card-content>
+
+  </form>
+</div>
+<button mat-raised-button color="primary" style="margin-left: 2%;" (click)="update()">Обнови</button>

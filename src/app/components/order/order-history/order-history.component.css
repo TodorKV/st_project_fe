@@ -1,0 +1,39 @@
+/* Structure */
+.mat-elevation-z8 {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td {
+  margin: 10px;
+  padding: 10px;
+}
+
+.action {
+  background-color: lightskyblue;
+}
+
+.actionNotReadyForWork {
+  background-color: lightgray;
+}
+
+.GREEN {
+  background-color: lightgreen;
+}
+
+.YELLOW {
+  background-color: yellow;
+}
+
+.RED {
+  background-color: lightcoral;
+}
+
+[mat-row].remove-background {
+  z-index: 1;
+  position: relative;
+}

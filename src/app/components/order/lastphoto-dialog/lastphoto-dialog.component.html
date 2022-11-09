@@ -1,0 +1,12 @@
+<h2 mat-dialog-title>Качване на снимка на крайния продукт</h2>
+<mat-dialog-content class="mat-typography">
+</mat-dialog-content>
+<mat-dialog-actions [formGroup]="imageGroup">
+    <input formControlName="ctrlFileInput" #csvInput multiple hidden="true" type="file"
+    onclick="this.value=null" (change)="imageInputChange($event)" accept="image/*" />
+    <button mat-flat-button color="{{this.fileInput.length == 0 ? 'primary' : 'accent' }}"
+    (click)="csvInput.click()">
+    {{this.fileInput.length == 0 ? "Изберете Снимки." : 'Снимките са заредени.'}}</button>
+    <button mat-button mat-dialog-close *ngIf="this.fileInput.length > 0" (click)="saveCompletedPhotos()">Запази снимки</button>
+    <button mat-button mat-dialog-close>Няма нужда от снимки</button>
+</mat-dialog-actions>

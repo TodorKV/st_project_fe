@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>Грешка! - {{data.errorCode}}</h2>
+<mat-dialog-content class="mat-typography">
+    <p>
+        {{getErorrMsg()}}
+    </p>
+</mat-dialog-content>
+<mat-dialog-actions>
+    <button *ngIf="!logoutFlag" mat-button mat-dialog-close>Затвори</button>
+    <button *ngIf="logoutFlag" mat-button mat-dialog-close (click)="logOut()">Изход!</button>
+</mat-dialog-actions>

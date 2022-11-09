@@ -1,0 +1,17 @@
+<mat-tab-group dynamicHeight>
+    <mat-tab label="Нова Задача">
+        <div class="example-small-box mat-elevation-z4">
+            <app-task-create></app-task-create>
+        </div>
+    </mat-tab>
+    <mat-tab label="Налични Задачи">
+        <div class="example-large-box mat-elevation-z4">
+            <app-task-history></app-task-history>
+        </div>
+    </mat-tab>
+    <mat-tab label="Завършени Задачи">
+        <div class="example-large-box mat-elevation-z4">
+            <app-task-history [isCompleted]="true"></app-task-history>
+        </div>
+    </mat-tab>
+</mat-tab-group>

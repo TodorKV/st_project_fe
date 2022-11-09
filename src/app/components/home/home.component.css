@@ -1,0 +1,74 @@
+.demo-stepper {
+  margin-top: 8px;
+}
+
+.demo-form-field {
+  margin-top: 16px;
+}
+
+.demo-radio-group {
+  display: flex;
+  flex-direction: column;
+  margin: 15px 0;
+}
+
+.demo-radio-button {
+  margin: 5px;
+}
+
+.loader-container {
+  /* position: fixed;
+  width: 100%;
+  z-index: 99;
+  use this for single line loader above the navbar */
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: black;
+  opacity: 0.8;
+  z-index: 999999;
+}
+
+.mat-button-toggle {
+  /* margin-left: 10px; */
+  /* background-color: #f8046a; */
+  background-color: transparent;
+  color: #ffffff;
+}
+
+.mat-button-toggle:hover {
+  background-color: #ff4081;
+  color: #ffffff !important;
+}
+
+.mat-button-toggle-checked {
+  background-color: #fc226b;
+  color: #ffffff !important;
+}
+
+::ng-deep .mat-button-toggle-label-content {
+  /* line-height: 0px !important; */
+  /* padding-right: 12px !important; */
+  text-align: start;
+}
+
+
+.example-container {
+  width: 100vw;
+  height: 100vh;
+}
+
+.drawer {
+  text-align: center;
+  background-color: #3f51b5;
+}
+
+.positronx {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+mat-button-toggle-group {
+  border: none;
+}

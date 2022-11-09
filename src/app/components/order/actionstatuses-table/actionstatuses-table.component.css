@@ -1,0 +1,31 @@
+/* Structure */
+.mat-elevation-z8 {
+    width: 100%;
+}
+
+.mat-form-field {
+    font-size: 14px;
+    width: 100%;
+}
+
+td {
+    margin: 10px;
+    padding: 10px;
+}
+
+[mat-row].remove-background {
+    z-index: 1;
+    position: relative;
+}
+
+[mat-row].add-green {
+    background-color: rgba(0, 255, 0, 0.6);
+}
+
+[mat-row].add-yellow {
+    background-color:rgba(255,255,0,0.6);
+}
+
+[mat-row].add-red {
+    background-color: rgba(255, 0, 0, 0.6);
+}

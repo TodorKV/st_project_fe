@@ -1,0 +1,15 @@
+<div fxLayout="row" fxLayoutAlign="center center">
+    <form class="example-form">
+      <p>{{data.name}}({{data.quantity}})</p>
+  
+      <mat-card-content>
+        <mat-form-field>
+          <input [(ngModel)]="updatedQuantity" name="quantity" matInput placeholder="Ново количество" [type]="'text'" required>
+          <mat-hint>Въведи ново количество</mat-hint>
+        </mat-form-field>
+      </mat-card-content>
+  
+    </form>
+  </div>
+  <br>
+  <button mat-dialog-close mat-raised-button color="primary" style="margin-left: 2%;" (click)="updateQuantity()">Обнови</button>

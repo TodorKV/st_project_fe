@@ -1,0 +1,60 @@
+<div *ngIf="flag" class="loader-container">
+  <!-- <mat-progress-bar mode="indeterminate"></mat-progress-bar> use this for single line loader above the nav bar-->
+  <mat-spinner style="top: 50%; left:50%;"></mat-spinner>
+</div>
+
+<mat-drawer-container class="example-container">
+  <mat-drawer mode="side" opened class="drawer">
+    <div class="drawe-contents">
+      <a href="/" class="positronx"
+        style="font-family: Leckerli One;font-size: 40px;margin-left: 5px;margin-right: 5px;">PodariMe</a>
+      <mat-divider vertical style="height:20px"></mat-divider>
+      <mat-button-toggle-group name="nav_buttons" [vertical]="true" aria-label="Favorite Color" [value]="selectedState"
+        [fxFlexAlign.xl]="true" (change)="onChange($event)">
+        <mat-button-toggle *ngIf="data?.role == 'ADMIN'" [value]="toggleEnum.Product">
+          <mat-icon>how_to_vote</mat-icon> Продукт
+        </mat-button-toggle>
+        <mat-button-toggle *ngIf="data?.role == 'ADMIN'" [value]="toggleEnum.NewOrder">
+          <mat-icon>description</mat-icon> Поръчка
+        </mat-button-toggle>
+        <mat-button-toggle *ngIf="data?.role == 'ADMIN'" [value]="toggleEnum.NewTask">
+          <mat-icon>dashboard</mat-icon> Задача
+        </mat-button-toggle>
+        <mat-button-toggle *ngIf="data?.role == 'ADMIN'" [value]="toggleEnum.Stock">
+          <mat-icon>assignment</mat-icon> Наличност
+        </mat-button-toggle>
+        <mat-button-toggle *ngIf="data?.role == 'ADMIN'" [value]="toggleEnum.Stats">
+          <mat-icon> insert_chart</mat-icon> Статистика
+        </mat-button-toggle>
+        <mat-button-toggle style="margin: 20px;" *ngIf="data?.role != 'ADMIN'" [value]="toggleEnum.MyOrders"
+          matBadge="{{this.newOrderCount}}" [matBadgeHidden]="this.newOrderCount == 0" matBadgePosition="after"
+          matBadgeColor="accent">Моите Поръчки
+        </mat-button-toggle>
+        <mat-button-toggle style="margin: 20px;" *ngIf="data?.role != 'ADMIN'" [value]="toggleEnum.MyTasks"
+          matBadge="{{this.newTaskCount}}" [matBadgeHidden]="this.newTaskCount == 0" matBadgePosition="after"
+          matBadgeColor="accent">Моите Задачи
+        </mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+  </mat-drawer>
+  <mat-drawer-content>
+
+    <app-nav [data]="data" [isHome]="true"></app-nav>
+    <mat-divider vertical style="height:20px"></mat-divider>
+
+    <div style="padding: 10px;  display: flex;  justify-content: center;">
+      <app-order-page *ngIf="selectedState == toggleEnum.NewOrder"></app-order-page>
+      <app-statistics style="margin-top: 5%;" *ngIf="selectedState == toggleEnum.Stats"></app-statistics>
+      <app-order-history
+        *ngIf="(selectedState == toggleEnum.History && data?.role == 'ADMIN') || (selectedState == toggleEnum.History && data?.role == 'COADMIN')">
+      </app-order-history>
+      <app-product-page *ngIf="selectedState == toggleEnum.Product"></app-product-page>
+      <app-order-history *ngIf="selectedState == toggleEnum.MyOrders"></app-order-history>
+      <app-task-page *ngIf="selectedState == toggleEnum.NewTask"></app-task-page>
+      <app-stock-page *ngIf="selectedState == toggleEnum.Stock"></app-stock-page>
+      <app-task-history *ngIf="selectedState == toggleEnum.MyTasks"></app-task-history>
+    </div>
+
+  </mat-drawer-content>
+</mat-drawer-container>

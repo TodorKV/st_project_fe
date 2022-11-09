@@ -1,0 +1,27 @@
+.example-full-width {
+  width: 100%;
+}
+
+.button {
+  margin-bottom: 10px;
+}
+
+.mat-list-icon {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+mat-selection-list {
+  max-height: 400px;
+  overflow: auto;
+}
+
+.example-card {
+  margin: 8px;
+  max-width: 100%;
+}
+
+.example-card-mine {
+  margin: 8px;
+  max-width: 100%;
+  background-color: cyan;
+}
